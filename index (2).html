@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peter London | Portfolio</title>
+
+<style>
+
+* {
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+scroll-behavior:smooth;
+}
+
+body {
+background:#f4f6f9;
+color:#333;
+}
+
+header {
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:#0d6efd; /* Changed from green to blue */
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 8%;
+z-index:1000;
+box-shadow:0 5px 10px rgba(0,0,0,.2);
+}
+
+.logo {
+font-size:30px;
+font-weight:bold;
+color:white;
+}
+
+nav a {
+text-decoration:none;
+color:white;
+margin-left:20px;
+font-weight:bold;
+transition:.4s;
+}
+
+nav a:hover {
+color:yellow;
+}
+
+.hero {
+height:100vh;
+background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80");
+background-size:cover;
+background-position:center;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+padding: 0 8%;
+}
+
+.hero-content {
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 100%;
+max-width: 1200px;
+text-align: left;
+gap: 30px;
+}
+
+.hero-img-left {
+flex: 1;
+display: flex;
+justify-content: flex-start;
+}
+
+.hero-img-left img {
+width: 250px;
+height: 250px;
+border-radius: 50%;
+object-fit: cover;
+border: 5px solid #0d6efd; /* Changed to Blue Border */
+box-shadow: 0 10px 20px rgba(0,0,0,.3);
+}
+
+.hero-text {
+flex: 1.5;
+padding: 0 10px;
+}
+
+.hero h1 {
+font-size:50px;
+}
+
+.hero h2 {
+font-size:26px;
+margin-top:10px;
+color:#00ffff; /* Reset to cyan light accent text */
+}
+
+.hero p {
+margin-top:20px;
+font-size:18px;
+}
+
+.hero-animated-gallery {
+flex: 1;
+display: flex;
+justify-content: flex-end;
+position: relative;
+width: 260px;
+height: 180px;
+}
+
+/* Stable animated fallbacks containing embedded canvas visualizations */
+.hero-animated-gallery .anim-box {
+position: absolute;
+width: 260px;
+height: 180px;
+border-radius: 8px;
+box-shadow: 0 10px 20px rgba(0,0,0,.3);
+opacity: 0;
+transition: opacity 0.8s ease-in-out;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-weight: bold;
+font-family: monospace;
+color: #0d6efd; /* Changed text color inside terminal to blue */
+background: #111;
+border: 2px solid #0d6efd; /* Changed terminal layout frame border to blue */
+overflow: hidden;
+}
+
+.hero-animated-gallery .anim-box.visible {
+opacity: 1;
+position: relative;
+}
+
+/* Custom CSS terminal animations to bypass dead link bugs */
+.code-line {
+width: 80%;
+height: 4px;
+background: #0d6efd; /* Changed glowing bar tracks to blue */
+margin: 6px 0;
+border-radius: 2px;
+animation: pulse 1.5s infinite alternate;
+}
+.line-short { width: 40%; }
+.line-med { width: 65%; }
+
+@keyframes pulse {
+  0% { opacity: 0.3; transform: scaleX(0.95); }
+  100% { opacity: 1; transform: scaleX(1); }
+}
+
+.btn {
+display:inline-block;
+margin-top:25px;
+padding:15px 30px;
+background:#0d6efd; /* Changed Button back to Blue */
+color:white;
+text-decoration:none;
+border-radius:30px;
+transition:.4s;
+}
+
+.btn:hover {
+background:#084298; /* Darker blue hover state */
+transform:scale(1.05);
+}
+
+section {
+padding:90px 8%;
+}
+
+.title {
+text-align:center;
+font-size:40px;
+margin-bottom:40px;
+color:#0d6efd; /* Changed Section Headers to Blue */
+}
+
+.about {
+display:grid;
+grid-template-columns:1fr 2fr;
+gap:40px;
+align-items:center;
+}
+
+.about img {
+width:280px;
+height:280px;
+border-radius:50%;
+border:6px solid #0d6efd; /* Changed avatar container outline to blue */
+display:block;
+margin:auto;
+}
+
+.about p {
+font-size:18px;
+line-height:1.8;
+}
+
+.skills {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.skill {
+background:white;
+padding:25px;
+text-align:center;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+transition:.4s;
+}
+
+.skill:hover {
+transform:translateY(-10px);
+}
+
+.skill img {
+width:80px;
+height:80px;
+transition:.4s;
+cursor:pointer;
+object-fit: contain;
+}
+
+.skill img:hover {
+transform:scale(1.2);
+}
+
+.skill h3 {
+margin-top:15px;
+}
+
+.skill p {
+color:#555;
+margin-top: 5px;
+}
+
+.projects {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+}
+
+.project {
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+transition:.4s;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.project:hover {
+transform:translateY(-8px);
+}
+
+.project h3 {
+color: #0d6efd; /* Changed structural titles to blue */
+margin-bottom: 10px;
+}
+
+.project p {
+color: #555;
+line-height: 1.5;
+margin-bottom: 15px;
+}
+
+.project-link {
+color: #0d6efd; /* Changed inline link strings to blue */
+text-decoration: none;
+font-weight: bold;
+}
+
+.project-link:hover {
+text-decoration: underline;
+}
+
+.profile {
+background:white;
+padding:40px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.profile img {
+width:180px;
+height:180px;
+border-radius:50%;
+border:6px solid #0d6efd; /* Changed outer profile loop ring to blue */
+margin-bottom:20px;
+}
+
+form {
+max-width:700px;
+margin:auto;
+}
+
+input,
+textarea {
+width:100%;
+padding:15px;
+margin:12px 0;
+border:1px solid #ccc;
+border-radius:5px;
+font-size:16px;
+}
+
+button {
+width:100%;
+padding:15px;
+background:#0d6efd; /* Changed primary contact trigger to blue */
+color:white;
+font-size:18px;
+border:none;
+cursor:pointer;
+}
+
+button:hover {
+background:#084298; /* Changed primary contact hover trigger to dark blue */
+}
+
+.social {
+text-align:center;
+}
+
+.social img {
+width:60px;
+margin:15px;
+transition:.4s;
+}
+
+.social img:hover {
+transform:scale(1.2);
+}
+
+footer {
+background:#222;
+color:white;
+text-align:center;
+padding:25px;
+}
+
+@media(max-width:992px){
+.hero-content {
+flex-direction: column;
+text-align: center;
+gap: 40px;
+}
+.hero-img-left, .hero-animated-gallery {
+justify-content: center;
+}
+}
+
+@media(max-width:768px){
+header {
+flex-direction:column;
+}
+nav {
+margin-top:15px;
+}
+.about {
+grid-template-columns:1fr;
+text-align:center;
+}
+.hero {
+height: auto;
+padding: 140px 8% 60px 8%;
+}
+.hero h1 {
+font-size:40px;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div class="logo">PETER LONDON</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#profile">Profile</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<section class="hero" id="home">
+<div class="hero-content">
+
+<div class="hero-img-left">
+<img src="petr.jpg" alt="Peter London Profile Picture">
+</div>
+
+<div class="hero-text">
+<h1>Peter London</h1>
+<h2>Full Stack Web Developer</h2>
+<p>I design and build functional, beautiful websites and web applications using modern technologies.</p>
+<a href="#contact" class="btn">Hire Me</a>
+</div>
+
+<div class="hero-animated-gallery" id="hero-slideshow">
+<div class="anim-box visible">
+  <div>&lt;html&gt;</div>
+  <div class="code-line"></div>
+  <div class="code-line line-med"></div>
+  <div>&lt;/html&gt;</div>
+</div>
+<div class="anim-box">
+  <div>console.log();</div>
+  <div class="code-line line-short"></div>
+  <div class="code-line"></div>
+</div>
+<div class="anim-box">
+  <div>SELECT * FROM;</div>
+  <div class="code-line line-med"></div>
+  <div class="code-line line-short"></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="about">
+<h2 class="title">About Me</h2>
+<div class="about">
+<img src="petr.jpg" alt="About Me">
+<div>
+<p>Hello! I am Peter London, a passionate Full Stack Web Developer. I love writing clean code, solving complex problems, and bringing creative ideas to life on the web. I build user-friendly applications with an emphasis on performance and responsive design.</p>
+</div>
+</div>
+</section>
+
+<section id="skills">
+<h2 class="title">My Skills</h2>
+<div class="skills">
+
+<div class="skill">
+<img src="https://via.placeholder.com/80/e34f26/ffffff?text=HTML5" alt="HTML5 Language Icon">
+<h3>HTML5</h3>
+<p>Structural foundation of modern web design.</p>
+</div>
+
+<div class="skill">
+<img src="https://via.placeholder.com/80/1572b6/ffffff?text=CSS3" alt="CSS3 Layout Icon">
+<h3>CSS3</h3>
+<p>Responsive layouts, custom animations, and styling.</p>
+</div>
+
+<div class="skill">
+<img src="https://via.placeholder.com/80/f7df1e/000000?text=JS" alt="JavaScript Scripting Icon">
+<h3>JavaScript</h3>
+<p>Dynamic interactivity, logic, and front-end functionality.</p>
+</div>
+
+<div class="skill">
+<img src="https://via.placeholder.com/80/3776ab/ffffff?text=Python" alt="Python Backend Icon">
+<h3>Python</h3>
+<p>Backend development, automation scripts, and data handling processing.</p>
+</div>
+
+<div class="skill">
+<img src="https://via.placeholder.com/80/00758f/ffffff?text=SQL" alt="SQL Database Icon">
+<h3>SQL</h3>
+<p>Database design, queries, and data management.</p>
+</div>
+
+</div>
+</section>
+
+<section id="projects">
+<h2 class="title">My Projects</h2>
+<div class="projects">
+
+<div class="project">
+<div>
+<h3>Project One: star chart.App</h3>
+<p>people are able to text one another  make  video calls and the like.</p>
+</div>
+<a href="#" class="project-link">View Project &rarr;</a>
+</div>
+
+<div class="project">
+<div>
+<h3>Project Two: Mzugoss library App</h3>
+<p>A web application built to track number of books available.</p>
+</div>
+<a href="#" class="project-link">View Project &rarr;</a>
+</div>
+
+<div class="project">
+<div>
+<h3>Project Three: Portfolio Website</h3>
+<p>A clean, custom-styled personal showcase portfolio site built using semantic HTML markup, modern CSS grids, and responsive layouts.</p>
+</div>
+<a href="#" class="project-link">View Project &rarr;</a>
+</div>
+
+</div>
+</section>
+
+<section id="profile">
+<h2 class="title">Profile Summary</h2>
+<div class="profile">
+<img src="444.jpg" alt="Profile Card View">
+<h3>Peter London</h3>
+<p style="color: #555; margin-bottom: 10px;">Full Stack Web Developer</p>
+<p>Dedicated to continuous learning and building software that delivers a great user experience.</p>
+</div>
+</section>
+
+<section id="contact">
+<h2 class="title">Contact Me</h2>
+<form action="#">
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea placeholder="Your Message" rows="6" required></textarea>
+<button type="submit">Send Message</button>
+</form>
+
+<div class="social" style="margin-top: 30px;">
+<img src="https://via.placeholder.com/60/0d6efd/ffffff?text=FB" alt="Facebook">
+<img src="https://via.placeholder.com/60/0d6efd/ffffff?text=LN" alt="LinkedIn">
+<img src="https://via.placeholder.com/60/0d6efd/ffffff?text=GH" alt="GitHub">
+</div>
+</section>
+
+<footer>
+<p>&copy; 2026 Peter London. All Rights Reserved.</p>
+</footer>
+
+<script>
+const slideBoxes = document.querySelectorAll('#hero-slideshow .anim-box');
+let activeIndex = 0;
+
+function rotateAnimations() {
+    slideBoxes[activeIndex].classList.remove('visible');
+    activeIndex = (activeIndex + 1) % slideBoxes.length;
+    slideBoxes[activeIndex].classList.add('visible');
+}
+
+setInterval(rotateAnimations, 3000);
+</script>
+
+</body>
